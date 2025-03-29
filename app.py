@@ -20,7 +20,7 @@ def ocr():
     if filename.endswith('.pdf'):
         images = convert_from_bytes(file.read())
         for page_num, img in enumerate(images):
-            text = pytesseract.image_to_string(img, lang='eng')
+text = pytesseract.image_to_string(image, lang='rus+kaz+eng+tur')
             results.append({"page": page_num + 1, "text": text})
     else:
         image = Image.open(file.stream)
