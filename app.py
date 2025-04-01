@@ -1,3 +1,17 @@
+from flask import Flask, request, jsonify
+import pytesseract
+from PIL import Image
+import io
+import base64
+from pdf2image import convert_from_bytes
+import cv2
+import numpy as np
+import fitz  # PyMuPDF for image extraction from PDF
+
+app = Flask(__name__)  # <-- ЭТО ГЛАВНОЕ
+
+# (и далее идёт весь остальной код)
+
 @app.route("/ocr", methods=["POST"])
 def ocr():
     if 'file' not in request.files:
