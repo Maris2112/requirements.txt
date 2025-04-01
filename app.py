@@ -120,9 +120,13 @@ def ocr():
 
         client.add_documents(documents, collection_name=collection_name)
 
-        return jsonify({
-            "status": "ok",
-            "hash
+       return jsonify({
+    "status": "ok",
+    "hash": hash_id,
+    "pages": len(results),
+    "images": extracted_images
+})
+
 
 
 
