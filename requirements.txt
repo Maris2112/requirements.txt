@@ -7,5 +7,6 @@ numpy==1.26.4
 PyMuPDF==1.23.22
 openai
 langchain
+langchain-community
 qdrant-client
 python-dotenv
