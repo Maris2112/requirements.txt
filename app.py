@@ -118,7 +118,7 @@ def ocr():
             for page in results
         ]
 
-        client.add_documents(documents, collection_name=collection_name)
+       client.add_documents(documents, collection_name=collection_name)
 
        return jsonify({
     "status": "ok",
