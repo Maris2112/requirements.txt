@@ -20,6 +20,13 @@ from qdrant_client.http.models import Distance, VectorParams
 app = Flask(__name__)
 
 # ----------------------------
+# ПИНГ-ЭНДПОИНТ
+# ----------------------------
+@app.route("/")
+def ping():
+    return "Hello, GPT engineer online!"
+
+# ----------------------------
 # Препроцессинг изображения
 # ----------------------------
 def preprocess_image(image):
