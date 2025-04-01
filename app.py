@@ -10,7 +10,7 @@ import fitz  # PyMuPDF for image extraction from PDF
 
 app = Flask(__name__)  # <-- ЭТО ГЛАВНОЕ
 
-# (и далее идёт весь остальной код)
+# ⬇️ Вставь сюда функции preprocess_image, extract_tables, extract_images_from_pdf
 
 @app.route("/ocr", methods=["POST"])
 def ocr():
@@ -42,11 +42,9 @@ def ocr():
         all_text = text
         extracted_images = []
 
-    # 🧠 HASH
     import hashlib
     hash_id = hashlib.md5(all_text.encode('utf-8')).hexdigest()
 
-    # 🧠 EMBEDDING + QDRANT
     from langchain.embeddings import OpenAIEmbeddings
     from langchain.vectorstores import Qdrant
     from langchain.schema import Document
@@ -84,11 +82,13 @@ def ocr():
         "pages": len(results),
         "images": extracted_images
     })
-    if __name__ == "__main__":
-    import os
 
-port = int(os.environ.get("PORT", 5000))
-app.run(host="0.0.0.0", port=port)
+# ✅ Вне функции, с правильными отступами
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
 
 
 
