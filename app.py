@@ -20,11 +20,11 @@ from qdrant_client.http.models import Distance, VectorParams
 app = Flask(__name__)
 
 # ----------------------------
-# ПИНГ-ЭНДПОИНТ
+# Пинг для проверки сервера
 # ----------------------------
 @app.route("/")
 def ping():
-    return "Hello, GPT engineer online!"
+    return "👋 GPT-инженер в деле! Сервер жив!"
 
 # ----------------------------
 # Препроцессинг изображения
@@ -114,7 +114,7 @@ def ocr():
             vectors_config=VectorParams(size=1536, distance=Distance.COSINE),
         )
 
-    # Подключение
+    # Подключение клиента
     client = Qdrant(
         url=qdrant_url,
         prefer_grpc=False,
@@ -149,6 +149,7 @@ def ocr():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
 
