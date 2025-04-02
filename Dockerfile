@@ -1,23 +1,27 @@
 FROM python:3.10-slim
 
-# Установка Tesseract OCR и зависимостей
-RUN apt-get update && \
-   apt-get install -y tesseract-ocr \
-  tesseract-ocr-eng \
-  tesseract-ocr-rus \
-  tesseract-ocr-kaz \
-  tesseract-ocr-tur \
-  libglib2.0-0 libsm6 libxext6 libxrender-dev \
+# Установка системных зависимостей
+RUN apt-get update && apt-get install -y \
+    tesseract-ocr \
+    poppler-utils \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-    poppler-utils gcc && \
-    apt-get clean
-
-# Копируем файлы
+# Создание рабочей директории
 WORKDIR /app
-COPY . .
 
-# Устанавливаем зависимости Python
+# Копирование зависимостей
+COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Запускаем приложение
-CMD ["python", "app.py"]
+# Копирование кода приложения
+COPY . .
+
+# Экспонирование порта
+EXPOSE 5000
+
+# Команда запуска
+CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:${PORT}"]
